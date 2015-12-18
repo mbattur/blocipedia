@@ -26,3 +26,5 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 gem 'bootstrap-sass'
+
+gem 'simplecov', :require => false, :group => :test
