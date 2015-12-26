@@ -10,4 +10,16 @@ class User < ActiveRecord::Base
   def set_default_role
     self.role ||= :standard
   end
+
+  def standard?
+    role == :standard
+  end
+
+  def premium?
+    role == :premium
+  end
+
+  def admin?
+    role == :admin
+  end
 end
