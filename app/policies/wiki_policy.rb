@@ -31,6 +31,6 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
+    user.admin?
   end
 end
