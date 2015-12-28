@@ -1,4 +1,5 @@
 class ApplicationPolicy
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -32,7 +33,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    false
+    user.admin?
   end
 
   def scope
@@ -50,5 +51,12 @@ class ApplicationPolicy
     def resolve
       scope
     end
+  end
+
+  private
+
+  def user_not_authorized
+    flash[:warning] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
   end
 end

@@ -27,10 +27,10 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? or not wiki.published?
+    user.admin? or not record.published?
   end
 
   def destroy?
-    user.admin?
+    user.admin? || record.user == user
   end
 end
