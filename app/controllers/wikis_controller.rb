@@ -46,8 +46,8 @@ class WikisController < ApplicationController
 
   def destroy
     @wiki = Wiki.find(params[:id])
-Rails.logger.info "Destroy"
-    authorize @wiki, :destroy?
+Rails.logger.info "Destroy in wikis contr"
+    authorize @wiki
 Rails.logger.info "After authorize"
     if @wiki.destroy(wiki_params)
       redirect_to @wiki
