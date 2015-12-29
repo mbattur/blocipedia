@@ -4,6 +4,8 @@ class WikiPolicy < ApplicationPolicy
   def initialize(user, wiki)
     @user = user
     @wiki = wiki
+puts "user: #{@user.inspect}"
+puts "wiki: #{@wiki.inspect}"
   end
 
   def index?
@@ -27,10 +29,17 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? or not record.published?
+    @user.admin? or not record.published?
   end
 
   def destroy?
-    user.admin? || record.user == user
+Rails.logger.info "Destroy?"
+    @user.admin?
+  end
+
+  private
+
+  def wiki
+    record
   end
 end
