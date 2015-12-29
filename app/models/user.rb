@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-Rails.logger.info "Admin?"
+Rails.logger.info "Admin? in User.rb"
     role == :admin
   end
 end

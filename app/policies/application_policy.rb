@@ -1,9 +1,7 @@
 class ApplicationPolicy
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   attr_reader :user, :record
 
   def initialize(user, record)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
     @user = user
     @record = record
   end
@@ -29,7 +27,7 @@ class ApplicationPolicy
   end
 
   def edit?
-    user.present?
+    update?
   end
 
   def destroy?
@@ -51,12 +49,5 @@ class ApplicationPolicy
     def resolve
       scope
     end
-  end
-
-  private
-
-  def user_not_authorized
-    flash[:warning] = "You are not authorized to perform this action."
-    redirect_to(request.referrer || root_path)
   end
 end

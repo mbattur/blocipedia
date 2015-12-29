@@ -33,7 +33,7 @@ puts "wiki: #{@wiki.inspect}"
   end
 
   def destroy?
-Rails.logger.info "Destroy?"
+Rails.logger.info "Destroy? in wikipolicy"
     @user.admin?
   end
 
