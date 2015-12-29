@@ -4,7 +4,7 @@ include RandomData
 RSpec.describe WikisController, type: :controller do
 
   let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph) }
-
+  #USE FACTORY GIRL HERE
   describe "GET index" do
     it "returns http success" do
       get :index
@@ -117,7 +117,7 @@ RSpec.describe WikisController, type: :controller do
        count = Wiki.where({id: my_wiki.id}).size
        expect(count).to eq 0
      end
- 
+
      it "redirects to wikis index" do
        delete :destroy, {id: my_wiki.id}
        expect(response).to redirect_to wikis_path
