@@ -1,4 +1,5 @@
 class WikisController < ApplicationController
+
   def index
     @wikis = Wiki.all
   end
@@ -34,25 +35,17 @@ class WikisController < ApplicationController
     authorize @wiki
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
-
-    # if @wiki.update
-    #   flash[:notice] = "Wiki was updated."
-    #   redirect_to @wiki
-    # else
-    #   flash.now[:alert] = "There was an error updating the wiki. Please try again."
-    #   render :edit
-    # end
   end
 
   def destroy
-    @wiki = Wiki.find(params[:id])
-Rails.logger.info "Destroy in wikis contr"
     authorize @wiki
-Rails.logger.info "After authorize"
-    if @wiki.destroy(wiki_params)
-      redirect_to @wiki
-    else
-      render :edit
-    end
+    @wiki.destroy
+    redirect_to wikis_path, :notice => "Wiki deleted."
+  end
+
+  private
+
+  def secure_params
+    params.require(:wiki).permit(:role)
   end
 end
