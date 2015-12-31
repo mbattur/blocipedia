@@ -10,10 +10,9 @@ RSpec.describe UsersController, type: :controller do
       password_confirmation: "blochead"
     }
   end
-  let(:user) {create(:user)}
+
   describe "GET new" do
     it "returns http success" do
-    p user.inspect
       get :new
       expect(response).to have_http_status(:success)
     end
@@ -28,7 +27,7 @@ RSpec.describe UsersController, type: :controller do
 
     let(:factory_user) { create(:user) }
 
-    before do
+    before :each do
       post :create, user: new_user_attributes
     end
 
