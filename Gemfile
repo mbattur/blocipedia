@@ -32,3 +32,5 @@ gem 'turbolinks'
 gem 'bootstrap-sass'
 
 gem 'devise'
+
+gem 'factory_girl_rails', '~> 4.0'
