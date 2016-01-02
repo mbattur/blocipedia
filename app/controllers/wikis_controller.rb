@@ -38,9 +38,17 @@ class WikisController < ApplicationController
   end
 
   def destroy
+    @wiki = Wiki.find(params[:id])
+Rails.logger.info current_user.standard?
     authorize @wiki
-    @wiki.destroy
-    redirect_to wikis_path, :notice => "Wiki deleted."
+Rails.logger.info @wiki.inspect
+    if @wiki.destroy
+      flash[:notice] = "Wiki was deleted."
+      redirect_to wikis_path
+    else
+      flash.now[:alert] = "There was an error deleting the wiki."
+      redirect_to wiki_path,id: @wiki.id
+    end
   end
 
   private
