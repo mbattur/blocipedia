@@ -11,6 +11,10 @@ class WikiPolicy < ApplicationPolicy
     new?
   end
 
+  def update?
+    user.present?
+  end
+
   def destroy?
     user.admin?
   end
