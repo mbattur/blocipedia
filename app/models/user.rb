@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
   end
 
   def standard?
-    Rails.logger.info "user.role = #{role}"
-    Rails.logger.info ":standard = #{:standard}"
     role == :standard.to_s
   end
 
@@ -24,7 +22,6 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-Rails.logger.info "Admin? in User.rb"
     role == :admin.to_s
   end
 end

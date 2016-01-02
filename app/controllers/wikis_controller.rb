@@ -33,15 +33,16 @@ class WikisController < ApplicationController
   def update
     @wiki = Wiki.find(params[:id])
     authorize @wiki
-    @wiki.title = params[:wiki][:title]
-    @wiki.body = params[:wiki][:body]
+    if @wiki.update
+      redirect_to @wiki
+    else
+      redirect_to wiki_path,id: @wiki.id
+    end
   end
 
   def destroy
     @wiki = Wiki.find(params[:id])
-Rails.logger.info current_user.standard?
     authorize @wiki
-Rails.logger.info @wiki.inspect
     if @wiki.destroy
       flash[:notice] = "Wiki was deleted."
       redirect_to wikis_path
