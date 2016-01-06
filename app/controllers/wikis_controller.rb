@@ -33,12 +33,12 @@ class WikisController < ApplicationController
   def update
     @wiki = Wiki.find(params[:id])
     authorize @wiki
-    if @wiki.update(secure_params)
+    if @wiki.update_attributes(secure_params)
       flash[:notice] = "Wiki was updated."
       redirect_to @wiki
     else
-      flash[:alert] = "There was an error saving the wiki. Please try again."
-      render :edit
+      flash.now[:alert] = "There was an error saving the wiki. Please try again."
+      redirect_to wiki_path,id: @wiki.id
     end
   end
 
@@ -57,6 +57,6 @@ class WikisController < ApplicationController
   private
 
   def secure_params
-    params.require(:wiki).permit(:role)
+    params.require(:wiki).permit(:role, :title, :body)
   end
 end
