@@ -9,7 +9,7 @@ RSpec.describe WikisController, type: :controller do
     sign_in user
   end
 
-  describe "GET index" ,focus:true do
+  describe "GET index" do
     it "returns http success" do
       get :index
       expect(response).to have_http_status(:success)
