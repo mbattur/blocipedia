@@ -5,9 +5,11 @@ RSpec.describe WikisController, type: :controller do
 
   let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph) }
   let(:user) { create(:user) }
-  before :each do
-    sign_in user
+  before (:each) do
+    @user = FactoryGirl.create(:user)
+    sign_in @user
   end
+
 
   describe "GET index" do
     it "returns http success" do
@@ -116,15 +118,21 @@ RSpec.describe WikisController, type: :controller do
     end
 
     describe "DELETE destroy" do
-     it "deletes the wiki" do
-       delete :destroy, {id: my_wiki.id}
-       count = Wiki.where({id: my_wiki.id}).size
-       expect(count).to eq 0
-     end
+      let(:admin) { create(:admin) }
+      before (:each) do
+        @admin = FactoryGirl.create(:admin)
+        sign_in @admin
+      end
 
-     it "redirects to wikis index" do
-       delete :destroy, {id: my_wiki.id}
-       expect(response).to redirect_to wikis_path
-     end
-   end
+      it "deletes the wiki" do
+        delete :destroy, {id: my_wiki.id}
+        count = Wiki.where({id: my_wiki.id}).size
+        expect(count).to eq 0
+      end
+
+      it "redirects to wikis index" do
+        delete :destroy, {id: my_wiki.id}
+        expect(response).to redirect_to wikis_path
+      end
+    end
 end

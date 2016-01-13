@@ -7,19 +7,6 @@ RSpec.describe UsersController, type: :controller do
     sign_in @user
   end
 
-  describe "GET new" do
-
-    it "returns http success" do
-      get :new
-      expect(response).to have_http_status(:success)
-    end
-
-    it "instantiates a new user" do
-      get :new
-      expect(:user).to_not be_nil
-    end
-  end
-
   describe "not signed in" do
 
     it "returns http success" do

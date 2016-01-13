@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   resources :wikis
-  resources :users, only: [:new, :create, :show]
+  resources :users, only: [:show]
 
   get 'about' => 'welcome#about'
 

@@ -7,5 +7,9 @@ FactoryGirl.define do
     password pw
     password_confirmation pw
     role :standard
+
+    factory :admin do
+      role :admin
+    end
   end
 end
