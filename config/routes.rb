@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :wikis
   resources :users, only: [:show]
+  resources :welcome, only: [:index, :about]
 
   get 'about' => 'welcome#about'
 
