@@ -1,4 +1,3 @@
-include RandomData
 require 'faker'
 
 50. times do
@@ -9,5 +8,14 @@ require 'faker'
 end
 wikis = Wiki.all
 
+20. times do
+  User.create!(
+    email: Faker::Internet.email,
+    password: Faker::Lorem.characters(10)
+  )
+end
+users = User.all
+
 puts "Seed finished"
 puts "#{Wiki.count} wikis created"
+puts "#{User.count} users created"
