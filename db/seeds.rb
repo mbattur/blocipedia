@@ -1,24 +1,22 @@
 require 'faker'
 
-if Wiki.count <= 50
-  50. times do
-    Wiki.create!(
-      title: Faker::Lorem.sentence,
-      body: Faker::Lorem.paragraph
-    )
-  end
-end
-wikis = Wiki.all
+MAX_WIKIS = 50
 
-if User.count <= 20
-  20. times do
-    User.create!(
-      email: Faker::Internet.email,
-      password: Faker::Lorem.characters(10)
-    )
-  end
+([0, (MAX_WIKIS - Wiki.count)].max).times do
+  Wiki.create!(
+    title: Faker::Lorem.sentence,
+    body: Faker::Lorem.paragraph
+  )
 end
-users = User.all
+
+MAX_USERS = 20
+
+([0, (MAX_USERS - User.count)].max).times do
+  User.create!(
+    email: Faker::Internet.email,
+    password: Faker::Lorem.characters(10)
+  )
+end
 
 puts "Seed finished"
 puts "#{Wiki.count} wikis created"
