@@ -34,7 +34,6 @@ class ChargesController < ApplicationController
   def downgrade
     @user = current_user
     @user.update(role: 'standard')
-    #@user.make_wikis_public
     flash[:alert] = "Downgraded successfully. Please come back again."
     redirect_to root_path
   end
