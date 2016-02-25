@@ -29,3 +29,5 @@ gem 'devise'
 gem "pundit"
 gem 'factory_girl_rails', '~> 4.0'
 gem 'faker'
+gem 'stripe'
+gem 'figaro', '1.0'
