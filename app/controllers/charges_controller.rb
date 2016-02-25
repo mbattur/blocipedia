@@ -37,5 +37,4 @@ class ChargesController < ApplicationController
     flash[:alert] = "Downgraded successfully. Please come back again."
     redirect_to root_path
   end
-
 end

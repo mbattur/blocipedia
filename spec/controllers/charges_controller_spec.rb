@@ -17,16 +17,11 @@ RSpec.describe ChargesController, type: :controller do
     my_role = @user.role
     expect(updated_user.role).to eq my_role
   end
+
+  it "checks user role downgrades" do
+    delete :downgrade
+    updated_user = assigns(:user)
+    my_role = @user.role
+    expect(updated_user.role).to eq my_role
+  end
 end
-
-    #setup
-
-      #setup my user
-      #user needs to be signed in as standard
-
-    #experiment
-      #invoke ChargesController create action
-      #pass the information it needs (rake routes)
-
-    #verify
-      #verify that the user is now premium
