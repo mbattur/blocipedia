@@ -25,3 +25,4 @@ RSpec.describe ChargesController, type: :controller do
     expect(updated_user.role).to eq my_role
   end
 end
+#testing
