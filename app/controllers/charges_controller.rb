@@ -26,9 +26,9 @@ class ChargesController < ApplicationController
     flash[:success] = "Thank you for upgrading, #{current_user.email}"
     redirect_to root_path
 
-    rescue Stripe::CardError => e
-    flash.now[:alert] = e.message
-    redirect_to new_charge_path
+    # rescue Stripe::CardError => e
+    # flash.now[:alert] = e.message
+    # redirect_to new_charge_path
   end
 
   def downgrade

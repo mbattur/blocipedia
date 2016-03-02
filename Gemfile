@@ -17,6 +17,7 @@ end
 
 group :test do
   gem 'simplecov'
+  gem 'stripe-ruby-mock', '~> 2.2.1', :require => 'stripe_mock'
 end
 
 gem 'sass-rails', '~> 5.0'
