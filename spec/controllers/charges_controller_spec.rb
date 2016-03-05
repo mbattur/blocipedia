@@ -35,4 +35,23 @@ RSpec.describe ChargesController, type: :controller do
       expect(response).to redirect_to root_path
     end
   end
+
+  describe "DELETE downgrade" do
+    let(:stripe_helper) { StripeMock.create_test_helper }
+    before { StripeMock.start }
+    after { StripeMock.stop }
+
+    it "downgrades the user\'s role/account to standard" do
+      @user = create(:user, role: 'premium')
+      delete :downgrade
+      @user.reload
+      @update = assigns(:user)
+      expect(@update.role).to eq('standard')
+    end
+
+    it "redirects to root_path" do
+      post :create
+      expect(response).to redirect_to root_path
+    end
+  end
 end
