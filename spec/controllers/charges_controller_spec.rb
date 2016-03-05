@@ -43,6 +43,7 @@ RSpec.describe ChargesController, type: :controller do
 
     it "downgrades the user\'s role/account to standard" do
       @user = create(:user, role: 'premium')
+      expect(@user.role).to eq('premium')
       delete :downgrade
       @user.reload
       @update = assigns(:user)
