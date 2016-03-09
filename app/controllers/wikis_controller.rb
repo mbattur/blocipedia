@@ -1,8 +1,11 @@
 class WikisController < ApplicationController
 
   def index
-    @wikis = Wiki.visible_to(current_user)
-    #authorize @wikis
+    if current_user.role == 'standard'
+      @wikis = Wiki.publically_viewable
+    else
+      @wikis = Wiki.all
+    end
   end
 
   def show
