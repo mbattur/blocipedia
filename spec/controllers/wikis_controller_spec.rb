@@ -3,13 +3,13 @@ include RandomData
 
 RSpec.describe WikisController, type: :controller do
 
-  let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph) }
+  let(:my_private_wiki) { create(:wiki, private: true) }
+  let(:my_wiki) { create(:wiki) }
   let(:user) { create(:user) }
   before (:each) do
     @user = FactoryGirl.create(:user)
     sign_in @user
   end
-
 
   describe "GET index" do
     it "returns http success" do
@@ -20,6 +20,11 @@ RSpec.describe WikisController, type: :controller do
     it "assigns [my_wiki] to @wikis" do
       get :index
       expect(assigns(:wikis)).to eq([my_wiki])
+    end
+
+    it "does not include private wikis in @wikis" do
+      get :index
+      expect(assigns(:wikis)).not_to include(my_private_wiki)
     end
   end
 

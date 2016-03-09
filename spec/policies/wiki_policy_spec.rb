@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe WikiPolicy do
-  #subject { WikiPolicy }
 
   let (:standard) { FactoryGirl.build_stubbed :user }
   let (:premium) { FactoryGirl.build_stubbed :user }

@@ -6,13 +6,21 @@ class WikiPolicy < ApplicationPolicy
     @wiki = wiki
   end
 
-  def create?
+  def index?
+    true
+  end
+
+  def show?
+    wiki.private != true || (user.present? && ((user.role == 'admin') || (user.role == 'premium') || wiki.user == user || wiki.user == (user)))
+  end
+
+  def create
     wiki.user_id = user.id
     new?
   end
 
   def update?
-    user.present?
+    user.present? && (wiki.private == false || ((user.admin? || wiki.user = user)))
   end
 
   def destroy?

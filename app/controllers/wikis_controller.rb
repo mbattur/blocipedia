@@ -1,11 +1,13 @@
 class WikisController < ApplicationController
 
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.visible_to(current_user)
+    #authorize @wikis
   end
 
   def show
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
   def new
@@ -16,6 +18,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.new
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
+    @wiki.private = params[:wiki][:private]
 
     if @wiki.save
       flash[:notice] = "Wiki was saved."
@@ -32,6 +35,7 @@ class WikisController < ApplicationController
 
   def update
     @wiki = Wiki.find(params[:id])
+    @wiki.private = params[:wiki][:private]
     authorize @wiki
     if @wiki.update(secure_params)
       flash[:notice] = "Wiki was updated."
@@ -57,6 +61,6 @@ class WikisController < ApplicationController
   private
 
   def secure_params
-    params.require(:wiki).permit(:role, :title, :body)
+    params.require(:wiki).permit(:role, :title, :body, :private)
   end
 end
