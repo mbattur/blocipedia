@@ -15,31 +15,32 @@ RSpec.describe Wiki, type: :model do
 
   describe "scopes" do
     before do
-      @public_wiki = Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false || nil)
-      @private_wiki = Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph)
+      @public_wiki = Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph)
+      @private_wiki = Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: true || nil)
     end
 
     describe "publically_viewable" do
       it "returns only public wikis" do
-        expect(Wiki.publically_viewable).to eq([@public_wiki])
+        expect((Wiki.publically_viewable)[0].id).to eq(@public_wiki.id)
       end
     end
 
     describe "privately_viewable" do
       it "returns only private wikis" do
-        expect(Wiki.privately_viewable).to eq([@private_wiki])
+        expect((Wiki.privately_viewable)[0].id).to eq(@private_wiki.id)
       end
     end
 
-    # describe "visible_to(user)" do
-    #   it "returns all wikis if the user is premium or admin" do
-    #     user = User.new
-    #     expect(Wiki.visible_to('premium' || 'admin')).to eq(Wiki.all)
-    #   end
-    #
-    #   it "returns only public wikis if user is standard" do
-    #     expect(Wiki.visible_to('standard')[0].id).to eq(@public_wiki.id)
-    #   end
-    # end
+    describe "visible_to(user)" do
+      it "returns all wikis if the user is premium or admin" do
+        user = User.new
+        vip = 'premium' || 'admin'
+        expect((Wiki.visible_to(vip))[0].id).to eq(@public_wiki.id)
+      end
+
+      it "returns only public wikis if user is standard" do
+        expect(Wiki.visible_to('standard')[0].id).to eq(@public_wiki.id)
+      end
+    end
   end
 end

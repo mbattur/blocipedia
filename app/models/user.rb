@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   devise :database_authenticatable, :confirmable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -21,5 +22,11 @@ class User < ActiveRecord::Base
 
   def admin?
     role == :admin.to_s
+  end
+
+  def downgrade
+    self.role = :standard
+    current_user.wikis.each { |wiki| wiki.make_public }
+    save
   end
 end
