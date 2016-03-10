@@ -17,11 +17,6 @@ RSpec.describe WikisController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
-    it "assigns [my_wiki] to @wikis" do
-      get :index
-      expect(assigns(:wikis)).to eq([my_wiki])
-    end
-
     it "does not include private wikis in @wikis" do
       get :index
       expect(assigns(:wikis)).not_to include(my_private_wiki)

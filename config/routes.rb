@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :users#, only: [:show, :index]
   resources :welcome, only: [:index, :about]
   resources :charges, only: [:new, :create]
+
   delete '/downgrade', to: 'charges#downgrade'
 
   get 'about' => 'welcome#about'

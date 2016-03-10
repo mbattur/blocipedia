@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
   def downgrade
     self.role = :standard
-    current_user.wikis.each { |wiki| wiki.make_public }
+    self.wikis.each { |wiki| wiki.make_public }
     save
   end
 end
