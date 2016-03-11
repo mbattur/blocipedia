@@ -1,6 +1,6 @@
 require 'faker'
 
-MAX_WIKIS = 50
+MAX_WIKIS = 10
 
 ([0, (MAX_WIKIS - Wiki.count)].max).times do
   Wiki.create!(
@@ -9,7 +9,7 @@ MAX_WIKIS = 50
   )
 end
 
-MAX_USERS = 20
+MAX_USERS = 5
 
 ([0, (MAX_USERS - User.count)].max).times do
   User.create!(

@@ -24,9 +24,9 @@ class User < ActiveRecord::Base
     role == :admin.to_s
   end
 
-  def downgrade
-    self.role = :standard
-    self.wikis.each { |wiki| wiki.make_public }
-    save
+  def downgrade_account(user)
+    user.role = 'standard'
+    user.save
+    user.wikis.where(private: true).update_all(private: false)
   end
 end
