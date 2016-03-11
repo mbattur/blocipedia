@@ -15,8 +15,8 @@ RSpec.describe Wiki, type: :model do
 
   describe "scopes" do
     before do
-      @public_wiki = Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph)
-      @private_wiki = Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: true || nil)
+      @public_wiki = Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: false)
+      @private_wiki = Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, private: true)
     end
 
     describe "publically_viewable" do
