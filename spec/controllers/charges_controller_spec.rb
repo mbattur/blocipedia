@@ -48,6 +48,12 @@ RSpec.describe ChargesController, type: :controller do
       @user.reload
       @update = assigns(:user)
       expect(@update.role).to eq('standard')
+
+      # current_user = create(:user, role: 'premium')
+      # expect(current_user.role).to eq('premium')
+      # delete :downgrade
+      # current_user.reload
+      # expect(current_user.role).to eq('standard')
     end
 
     it "redirects to root_path" do
