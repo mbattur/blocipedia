@@ -28,7 +28,8 @@ class ChargesController < ApplicationController
   end
 
   def downgrade
-    current_user.downgrade_account(current_user)
+    @user = current_user
+    @user.downgrade_account
     flash[:alert] = "Downgraded successfully. Please come back again."
     redirect_to root_path
   end
