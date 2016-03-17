@@ -5,8 +5,12 @@ Rails.application.routes.draw do
   devise_for :users
   get 'welcome/index'
 
-  resources :wikis
-  resources :users#, only: [:show, :index]
+  resources :wikis do
+    resources :collaborators
+  end
+
+
+  resources :users
   resources :welcome, only: [:index, :about]
   resources :charges, only: [:new, :create]
 

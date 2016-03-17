@@ -1,11 +1,7 @@
 class WikisController < ApplicationController
 
   def index
-    if current_user.role == 'standard'
-      @wikis = Wiki.publically_viewable
-    else
-      @wikis = Wiki.all
-    end
+    @wikis = policy_scope(Wiki)
   end
 
   def show
@@ -35,6 +31,8 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    @users = User.all
+    authorize @wiki
   end
 
   def update
