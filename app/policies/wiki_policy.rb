@@ -11,7 +11,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def show?
-    wiki.private != true || (user.present? && ((user.role == 'admin') || (user.role == 'premium') || wiki.user == user || wiki.user == (user)))
+    wiki.private != true || (user.present? && ((user.role == 'admin') || (user.role == 'premium') || wiki.user == user || wiki.user == (user) || wiki.users.include?(user)))
   end
 
   def create
