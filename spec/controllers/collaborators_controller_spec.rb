@@ -11,9 +11,24 @@ RSpec.describe CollaboratorsController, type: :controller do
   end
 
   describe 'POST create' do
-    it 'collaborator by current user' do
+    before do
+      @collaborator = create(:collaborator, user: @user, wiki: @wiki)
+    end
+
+    it 'returns an http redirect' do
       post :create, wiki_id: @wiki.id, collaborator: { user_id: @user.id, wiki_id: @wiki.id }
-      @collaborator = assigns(:collaborator)
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'creates collaborator' do
+      expect{
+         post :create, wiki_id: @wiki.id, collaborator: { user_id: @user.id, wiki_id: @wiki.id }
+       }.to change(Collaborator, :count).by(1)
+    end
+
+
+    it 'flashes correct notice' do
+      post :create, wiki_id: @wiki.id, collaborator: { user_id: @user.id, wiki_id: @wiki.id }
       expect(flash[:notice]).to eq('You added a collaborator for your wiki.')
     end
 
@@ -21,11 +36,6 @@ RSpec.describe CollaboratorsController, type: :controller do
       post :create, wiki_id: @wiki.id, collaborator: { user_id: @user.id, wiki_id: @wiki.id }
       expect(response).to redirect_to(@wiki)
     end
-
-    # it 'collaborator fails, flash error generated' do
-    #   post :create, wiki_id: @wiki.id, collaborator: { user_id: @user.id, wiki_id: nil }
-    #   expect(flash[:error]).to eq('There was an error adding this collaborator. Please try again.')
-    # end
   end
 
   describe 'DELETE destroy' do
@@ -33,11 +43,20 @@ RSpec.describe CollaboratorsController, type: :controller do
       @wiki = create(:wiki, user: @user_premium)
       @collaborator = create(:collaborator, user: @user, wiki: @wiki)
     end
-    it 'collaborator by current user wiki owner' do
+
+    it 'deletes collaborator' do
+      delete :destroy, wiki_id: @wiki.id, id: @collaborator.id
+      expect(Collaborator.find_by(id: @collaborator.id)).to be nil
+    end
+
+    it 'flashes correct notice' do
       delete :destroy, wiki_id: @wiki.id, id: @collaborator.id
       expect(flash[:notice]).to eq('Collaborator removed from wiki.')
+    end
+
+    it 'redirects to wiki show' do
+      delete :destroy, wiki_id: @wiki.id, id: @collaborator.id
       expect(response).to redirect_to(@wiki)
-      expect(Collaborator.find_by(id: @collaborator.id)).to be nil
     end
   end
 end
