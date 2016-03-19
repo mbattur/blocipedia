@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   resources :wikis do
-    resources :collaborators
+    resources :collaborators, only: [:create, :destroy]
   end
 
 

@@ -1,12 +1,16 @@
 class CollaboratorsController < ApplicationController
-  def index
-  end
+  # def index
+  # end
+  #
+  # def new
+  #   @collaborator = Collaborator.new
+  #   @user = User.all
+  #   @wiki = Wiki.find(params[:wiki_id])
+  # end
 
-  def new
-    @collaborator = Collaborator.new
-    @user = User.all
-    @wiki = Wiki.find(params[:wiki_id])
-  end
+  # def show
+  #   @collaborator = Collaborator.find(params[:wiki])
+  # end
 
   def create
     @wiki = Wiki.find(params[:wiki_id])
@@ -21,12 +25,8 @@ class CollaboratorsController < ApplicationController
     end
   end
 
-  def show
-     @collaborator = Collaborator.find(params[:wiki])
-  end
-
   def destroy
-    @wiki = Wiki.find(params[:wiki_id])    
+    @wiki = Wiki.find(params[:wiki_id])
     @collaborator = Collaborator.find(params[:id])
 
     if @collaborator.destroy

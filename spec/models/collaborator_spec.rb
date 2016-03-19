@@ -5,10 +5,10 @@ RSpec.describe Collaborator, type: :model do
     @user = create(:user)
     @wiki = create(:wiki)
     @collaborator = create(:collaborator, user: @user, wiki: @wiki)
-
-    # it { is_expected.to belong_to(:user) }
-    # it { is_expected.to belong_to(:wiki) }
   end
+
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to belong_to(:wiki) }
 
   context 'User as Collaborator' do
     before do

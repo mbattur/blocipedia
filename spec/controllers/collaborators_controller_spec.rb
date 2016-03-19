@@ -11,5 +11,4 @@ RSpec.describe CollaboratorsController, type: :controller do
   #   end
   #
 
-  end
 end
