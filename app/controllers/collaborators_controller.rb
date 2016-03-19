@@ -1,16 +1,4 @@
 class CollaboratorsController < ApplicationController
-  # def index
-  # end
-  #
-  # def new
-  #   @collaborator = Collaborator.new
-  #   @user = User.all
-  #   @wiki = Wiki.find(params[:wiki_id])
-  # end
-
-  # def show
-  #   @collaborator = Collaborator.find(params[:wiki])
-  # end
 
   def create
     @wiki = Wiki.find(params[:wiki_id])
@@ -36,4 +24,17 @@ class CollaboratorsController < ApplicationController
       flash[:error] = "There was an error deleting this collaborator. Please try again."
     end
   end
+
+  # def index
+  # end
+  #
+  # def new
+  #   @collaborator = Collaborator.new
+  #   @user = User.all
+  #   @wiki = Wiki.find(params[:wiki_id])
+  # end
+
+  # def show
+  #   @collaborator = Collaborator.find(params[:wiki])
+  # end
 end
